@@ -1,4 +1,4 @@
-export interface ProductUrlState {
+export interface ParamType {
     limit: number,
     include: string,
     aggregations:number,
@@ -6,6 +6,4 @@ export interface ProductUrlState {
     category: number,
     page: number,
     urlKey: string
-
-
 }

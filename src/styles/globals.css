@@ -15,13 +15,14 @@
         @apply cursor-pointer border-0 rounded-lg bg-transparent font-normal leading-[150%] outline-none flex items-center justify-center relative overflow-visible  
     }
 }
+
 .cart-btn::before {
-content: "";
-  display: block;
-  height: 20px;
-  position: absolute;
-  left: -12px;
-  border: 1px solid rgb(235, 235, 240);
+    content: "";
+    display: block;
+    height: 20px;
+    position: absolute;
+    left: -12px;
+    border: 1px solid rgb(235, 235, 240);
 }
 
 .name {

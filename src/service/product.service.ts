@@ -1,10 +1,10 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 export const productApi = createApi({
     reducerPath: 'productApi',
-    baseQuery: fetchBaseQuery({baseUrl:'//tiki.vn/api/personalish/v1/blocks/listings?limit=40&include=advertisement&aggregations=2&trackity_id=cca3c480-6967-8e46-2521-43ed98bd7472&category=915&page=2&urlKey=thoi-trang-nam' }),
+    baseQuery: fetchBaseQuery({baseUrl:'https://tiki.vn/api/personalish/v1/blocks/' }),
     endpoints: build => ({
-        getProduct: build.query<any,void>({
-            query: () => ''
+        getProduct: build.query<any,any>({
+            query: ({option}) => `listings?limit=${option.limit}&include=${option.include}&aggregate=${option.aggregate}&trackity_id=${option.trackity_id}&category=${option.category}&page=${option.page}&urlKey=${option.urlKey}`
         })
     })
 })
