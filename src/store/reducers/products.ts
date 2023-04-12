@@ -1,12 +1,13 @@
 import http from "@/src/utils/http";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {ParamType} from "@/src/types/param.type";
 interface ProductState {
+    filterList: any
     productList: any
     paramUrl: any
     categories: any
 }
 const initialState: ProductState = {
+    filterList: [],
     productList: [],
     paramUrl: {
         limit: 40,
@@ -43,10 +44,17 @@ const productSlice = createSlice({
                 ...state.paramUrl,
                 ...payload
             }
-
         },
         deleteDashboard: (state, action:PayloadAction<any>) => {
 
+        },
+        updateFilterList: (state, action:PayloadAction<any>) => {
+            const payload = action.payload
+            state.filterList.push(payload)
+        },
+        deleteFilterList: (state, action:PayloadAction<any>) => {
+            const payload = action.payload
+            state.filterList.splice(state.filterList.indexOf(payload), 1)
         }
     },
     extraReducers(builder) {
@@ -58,6 +66,6 @@ const productSlice = createSlice({
 }
 )
 
-export const {updateDashboard, deleteDashboard} = productSlice.actions
+export const {updateDashboard, deleteDashboard,updateFilterList, deleteFilterList} = productSlice.actions
 const productReducer = productSlice.reducer
 export default productReducer

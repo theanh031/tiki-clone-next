@@ -1,39 +1,69 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useAppDispatch} from "@/src/components/hook";
-import {updateDashboard} from "@/src/store/reducers/products";
-import {lightningcss} from "tailwindcss/src/oxide/cli/build/deps";
+import {deleteFilterList, updateDashboard, updateFilterList} from "@/src/store/reducers/products";
 
 const Dashboard__props = ({props} : any) => {
     const [display, setDisplay] = useState(false);
-    const [checkId, setCheckId] = useState<Array<number>>([]);
+    const [isCheck, setIsCheck] = useState(false);
+    const [checkIdList , setCheckIdList] = useState<number[]>([]);
     const [queryName, setQueryName] = useState('');
+    const [value, setValue] = useState({
+        queryValue: '',
+        displayValue: '',
+    });
     const dispatch = useAppDispatch()
 
-    const onChangeInput = (index: number, value: any) => {
-        setCheckId(prev => {
-            const isChecked = checkId.includes(index)
-            if(isChecked) {
+    const handleCheck = (index: number) => {
 
-                return checkId.filter( item => item !== index)
-            }else  {
-                setQueryName(!(queryName === '') ? queryName + ',' + value.query_value : value.query_value)
-                return [...prev, index]
-            }
+    }
+    const onChangeInput = (index: number, value: any) => {
+        const newCheckId = [...checkIdList]
+        setValue({
+            queryValue : value.query_value,
+            displayValue : value.display_value,
         })
-        const payload= {
-            [props && props.query_name] : queryName
+
+        if( !newCheckId.includes(index)) {
+            newCheckId.push(index)
+        }else  {
+            setIsCheck(true)
+            newCheckId.splice(newCheckId.indexOf(index), 1)
+        }
+        setCheckIdList(newCheckId)
+    }
+    useEffect( () => {
+        console.log(checkIdList)
+        console.log(isCheck)
+        if (!isCheck) {
+            setQueryName(prev => prev !== '' ? `${prev},${value.queryValue}` : value.queryValue)
+        } else {
+            setQueryName(prev => prev.split(',').filter(item => item !== value.queryValue).join(','))
+        }
+
+
+    },[checkIdList, isCheck])
+    useEffect(() => {
+        const payload = {
+            [props && props.query_name]: queryName
         }
         if (queryName !== '') {
-            dispatch(updateDashboard(payload))
+            console.log(1)
+            if(isCheck){
+                dispatch(updateFilterList(value.displayValue));
+            }else {
+                dispatch(deleteFilterList(value.displayValue))
+            }
+            dispatch(updateDashboard(payload));
         }
-    }
+
+    },[queryName, isCheck])
     return (
         <div className=' pb-3 border-t border-solid border-[rgb(235, 235, 240)] overflow-hidden'>
             <h4 className="leading-5 block text-[rgb(56, 56, 61)] py-3 font-medium">{props && props.display_name}</h4>
             <div>
                 {props && props.values.map((value: any, index: number ) => (
                     <div key={index} className={`${(index > props.collapsed - 1 && !display) ? 'hidden' : ''} text-xs font-normal whitespace-nowrap overflow-hidden text-ellipsis mb-3 flex capitalize no-underline w-full items-center mr-[2px]`}>
-                        <input className='mr-3' id={`checkbox${props.query_name}-${index}`} checked={checkId.includes(index)} type='checkbox' onChange={() => onChangeInput(index, value)} />
+                        <input className='mr-3' id={`checkbox${props.query_name}-${index}`} checked={checkIdList.includes(index)} type='checkbox' onChange={() => onChangeInput(index, value)} />
                         <label className='flex items-center min-h-[16px] flex-1 flex-wrap gap-1' htmlFor={`checkbox${props.query_name}-${index}`} >
                             {value.display_value}
                         </label>
