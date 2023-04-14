@@ -1,5 +1,5 @@
 import {useAppDispatch} from "@/src/components/hook";
-import {updateDashboard} from "@/src/store/reducers/products";
+import {updateParams} from "@/src/store/reducers/products";
 
 const Dashboard__block = ({category} : any ) => {
     const dispatch = useAppDispatch()
@@ -8,7 +8,7 @@ const Dashboard__block = ({category} : any ) => {
             category: item.query_value,
             urlKey: item.url_key,
         }
-        dispatch(updateDashboard(payload))
+        dispatch(updateParams(payload))
     }
 
     const dashboardItemStyle = 'text-[12px] font-normal text-[rgb(56, 56, 61)] pb-3 leading-4 flex items-center cursor-pointer';

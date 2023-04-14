@@ -1,7 +1,8 @@
 import http from "@/src/utils/http";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {paramUrl} from "@/src/utils/constants";
 interface ProductState {
-    filterList: any
+    filterList: any[]
     productList: any
     paramUrl: any
     categories: any
@@ -9,15 +10,7 @@ interface ProductState {
 const initialState: ProductState = {
     filterList: [],
     productList: [],
-    paramUrl: {
-        limit: 40,
-        include: "advertisement",
-        aggregations: 2,
-        trackity_id: "cca3c480-6967-8e46-2521-43ed98bd7472",
-        category: 915,
-        page: 1,
-        urlKey: "thoi-trang-nam"
-    },
+    paramUrl,
     categories: [{
         display_value: "Thời trang nam",
         url_key:'thoi-trang-nam',
@@ -38,24 +31,32 @@ const productSlice = createSlice({
     name: 'product',
     initialState,
     reducers: {
-        updateDashboard: (state, action:PayloadAction<any>) => {
-            const payload = action.payload
+        updateParams: (state, action:PayloadAction<any>) => {
+            let payload = action.payload
+            if(payload.hasOwnProperty('displayName')){
+                state.filterList.push(payload)
+                const {displayName, ...newPayload} = payload
+                payload = newPayload
+            }
             state.paramUrl = {
                 ...state.paramUrl,
                 ...payload
             }
         },
-        deleteDashboard: (state, action:PayloadAction<any>) => {
-
+        deleteParam: (state, action:PayloadAction<any>) => {
+            let payloads = action.payload
+            state.filterList = state.filterList.filter( (filter : any) => {
+                return filter.displayName !== payloads.displayName})
+            const {displayName, ...newPayload} = payloads
+            const current = state.paramUrl
+            delete current[Object.keys(newPayload).toString()]
+            state.paramUrl = current
         },
-        updateFilterList: (state, action:PayloadAction<any>) => {
-            const payload = action.payload
-            state.filterList.push(payload)
-        },
-        deleteFilterList: (state, action:PayloadAction<any>) => {
-            const payload = action.payload
-            state.filterList.splice(state.filterList.indexOf(payload), 1)
+        clearParam: (state, action: PayloadAction<any>) => {
+            state.paramUrl = initialState.paramUrl;
+            state.filterList = initialState.filterList;
         }
+
     },
     extraReducers(builder) {
         builder
@@ -66,6 +67,6 @@ const productSlice = createSlice({
 }
 )
 
-export const {updateDashboard, deleteDashboard,updateFilterList, deleteFilterList} = productSlice.actions
+export const {updateParams, deleteParam,clearParam} = productSlice.actions
 const productReducer = productSlice.reducer
 export default productReducer

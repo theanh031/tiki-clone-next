@@ -1,15 +1,26 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {HandleRate} from "@/src/components/helpler";
-import {useAppDispatch} from "@/src/components/hook";
-import {updateDashboard} from "@/src/store/reducers/products";
+import {useAppDispatch, useAppSelector} from "@/src/components/hook";
+import {
+    deleteParam,
+    updateParams
+} from "@/src/store/reducers/products";
+import {RootState} from "@/src/store";
 
 const Dashboard__rate = ({rating}: any) => {
+    const filterList = useAppSelector((state: RootState) => state.productReducer.filterList)
     const dispatch = useAppDispatch()
     const handleClick = (item: any) => {
-        const payload ={
+        const payload = {
+            displayName: item.display_value,
             rating: item.query_value
         }
-        dispatch(updateDashboard(payload))
+        const isCheck = filterList?.some((filter: any) => filter.displayName === item.display_value)
+        if(!isCheck) {
+            dispatch(updateParams(payload))
+        }else {
+            dispatch(deleteParam(payload))
+        }
     }
     return (
         <div className=' pb-3 border-t border-solid border-[rgb(235, 235, 240)] overflow-hidden'>

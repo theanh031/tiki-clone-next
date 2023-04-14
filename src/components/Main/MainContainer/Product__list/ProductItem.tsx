@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image';
+import nowIcon from '@/public/img/now_product.png'
 
 interface ProductItemType {
     product: any;
@@ -46,7 +47,7 @@ const ProductItem = ({product}: ProductItemType) => {
                                 </div>
                                     <div className="flex flex-row items-center absolute bottom-0 left-0">
                                         <div className="flex flex-row items-center gap-[2px] pr-2 rounded-tl-12px ">
-                                            {product.badges_new.find((e: any) =>  e.code === "asa_reward_badge"
+                                            {product.badges_new.find((e: any) => e.code === "asa_reward_badge"
                                             ) ? (
                                                 <Image
                                                     alt=""
@@ -61,7 +62,8 @@ const ProductItem = ({product}: ProductItemType) => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="text-[#242424] py-2 mx-3 border-b border-solid border-[#ebebf0] min-h-[122px]">
+                                <div
+                                    className="text-[#242424] py-2 mx-3 border-b border-solid border-[#ebebf0] min-h-[122px]">
                                     <div className='overflow-hidden mt-[6px] min-h-[32px]'>
                                         <h3 className="name font-normal text-[12px] leading-4 text-[#38383d] m-0 break-words ">
                                             {product.name}
@@ -96,13 +98,15 @@ const ProductItem = ({product}: ProductItemType) => {
                                         </div>
                                         <div className="w-[1px] h-[10px] bg-[#ebebf0] ml-[2px] mr-1"></div>
                                         <div className="overflow-hidden max-h-4 break-all text-[#808089] ">
-                                            { product.quantity_sold && product.quantity_sold.text}
+                                            {product.quantity_sold && product.quantity_sold.text}
                                         </div>
                                     </div>
-                                    <div className="text-[#ff424e] text-left text-[16px] leading-6 font-medium m-0 flex items-center">
+                                    <div
+                                        className="text-[#ff424e] text-left text-[16px] leading-6 font-medium m-0 flex items-center">
                                         <div>
                                             {product.price}{" "}
-                                            <sup className="-top-[0.5em] relative text-[75%] leading-[0] align-baseline">₫</sup>
+                                            <sup
+                                                className="-top-[0.5em] relative text-[75%] leading-[0] align-baseline">₫</sup>
                                         </div>
                                         <div
                                             className="px-[2px] leading-4 text-xs font-medium ml-1 text-[#ff424e] mt-[3px]">
@@ -111,16 +115,17 @@ const ProductItem = ({product}: ProductItemType) => {
                                     </div>
                                     <div className="font-normal text-[10px] leading-3 min-h-[24px] text-[#808089]">
                                         {product.badges_new.find((a: any) => a.code === "asa_reward_html_badge"
-                                            ) && product.badges_new.find((a: any) => a.code === "asa_reward_html_badge").text}
+                                        ) && product.badges_new.find((a: any) => a.code === "asa_reward_html_badge").text}
                                     </div>
                                     <div className="flex gap-1 flex-wrap mt-[6px] min-h-[17px]">
                                         {product.badges_new.find((x: any) => x.code === "option_color"
                                         ) ? (
-                                            <div className="px-1 py-[2px] border-[0.5px] border-solid border-[#1a94ff] rounded-sm font-normal text-[10px] leading-[12px] text-[#1a94ff]">
+                                                <div
+                                                    className="px-1 py-[2px] border-[0.5px] border-solid border-[#1a94ff] rounded-sm font-normal text-[10px] leading-[12px] text-[#1a94ff]">
                                                 <span>
                                                     {product.badges_new.find((x: any) => x.code === "option_color").text}
                                                 </span>
-                                            </div>
+                                                </div>
                                             ) :
                                             (<div className='h-[17px]'></div>)
                                         }
@@ -128,12 +133,19 @@ const ProductItem = ({product}: ProductItemType) => {
                                 </div>
                             {product.badges_new.find((x: any) => x.code === "tikinow") ?
                                 <div className="flex px-3 py-2 gap-1">
-                                    <Image alt='' width='0' height='0' className='w-8 h-4 max-w-full' src={product.badges_new.find((x: any) => x.code === "tikinow").icon}/>
-                                    <span className='text-grayText font-normal text-[12px] leading-4'>{product.badges_new.find((x: any) => x.code === "tikinow").text}</span>
+                                    <Image
+                                        alt=''
+                                        width='0'
+                                        height='0'
+                                        className='w-8 h-4 max-w-full'
+                                        src={product.badges_new.some((x: any) => x.code === "tikinow") ? nowIcon : ''}/>
+                                    <span
+                                        className='text-grayText font-normal text-[12px] leading-4'>{product.badges_new.find((x: any) => x.code === "tikinow").text}</span>
                                 </div>
                                 :
                                 <div className="flex px-3 py-2 gap-1">
-                                    <span className='text-grayText font-normal text-[12px] leading-4'>{product.badges_new.find((x: any) => x.code === "delivery_info_badge").text}</span>
+                                    <span
+                                        className='text-grayText font-normal text-[12px] leading-4'>{product.badges_new.find((x: any) => x.code === "delivery_info_badge").text}</span>
                                 </div>
                             }
                         </span>

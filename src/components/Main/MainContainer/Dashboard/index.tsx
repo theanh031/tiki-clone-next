@@ -16,7 +16,7 @@ const Index = () => {
         <div className='auto-cols-max w-[200px] px-4 bg-white'>
             <Dashboard__block category={dashboardType('category')}/>
             <Dashboard__location/>
-            <Dashboard__service />
+            <Dashboard__service fastDeliver = {dashboardType('support_p2h_delivery')} astra = {dashboardType('seller_asa_cashback')} />
             <Dashboard__rate rating={dashboardType('rating')}/>
             <Dashboard__price price = {dashboardType('price')}/>
             <Dashboard__props props = {dashboardType('brand')}/>
