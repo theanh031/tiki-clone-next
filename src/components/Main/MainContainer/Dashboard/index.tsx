@@ -13,7 +13,7 @@ const Index = () => {
         return dashboardList && dashboardList.find((item: any) => item.query_name === key)
     }
     return (
-        <div className='auto-cols-max w-[200px] px-4 bg-white'>
+        <div className='w-[200px] px-4 bg-white overflow-hidden'>
             <Dashboard__block category={dashboardType('category')}/>
             <Dashboard__location/>
             <Dashboard__service fastDeliver = {dashboardType('support_p2h_delivery')} astra = {dashboardType('seller_asa_cashback')} />

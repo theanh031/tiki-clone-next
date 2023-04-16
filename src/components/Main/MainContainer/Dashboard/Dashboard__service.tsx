@@ -13,7 +13,7 @@ const Dashboard__service = ({astra, fastDeliver}: any) => {
             const payload = {
                 [fastDeliver.query_name]: fastDeliver.values[0].query_value
             }
-            const isCheck = Object.keys(paramUrl).some( (key:any) => key === fastDeliver.query_name)
+            const isCheck = Object.keys(paramUrl).includes(fastDeliver?.query_name)
             if( !isCheck ){
                 dispatch(updateParams(payload))
             }else {
@@ -40,7 +40,7 @@ const Dashboard__service = ({astra, fastDeliver}: any) => {
             <div className="text-xs font-normal whitespace-nowrap overflow-hidden text-ellipsis mb-3 flex capitalize no-underline w-full items-start mr-[2px]">
                 <input
                     className='mr-3' id='now__checkbox' type='checkbox' onChange={() => onChangeInput('now')}
-                    checked={Object.keys(paramUrl).some( (key:any) => key === fastDeliver.query_name)}/>
+                    checked={Object.keys(paramUrl).includes(fastDeliver?.query_name)}/>
                 <label className='flex items-center min-h-[16px] flex-1 flex-wrap gap-1' htmlFor="now__checkbox">
                     <span>
                         <Image className= "h-[10px] w-auto" width='0' height='0' sizes='100vw' src={nowIcon} alt="" />
@@ -52,11 +52,11 @@ const Dashboard__service = ({astra, fastDeliver}: any) => {
             <div className="text-xs font-normal whitespace-nowrap overflow-hidden text-ellipsis mb-3 flex capitalize no-underline w-full items-start mr-[2px]">
                 <input
                     className='mr-3'
-                    id='now__checkbox'
+                    id='astra__checkbox'
                     type='checkbox'
-                    checked={Object.keys(paramUrl).some( (key:any) => key === astra.query_name)}
+                    checked={Object.keys(paramUrl).includes(astra?.query_name)}
                     onChange={() => onChangeInput('astra')} />
-                <label className='flex items-center min-h-[16px] flex-1 flex-wrap gap-1' htmlFor="now__checkbox">
+                <label className='flex items-center min-h-[16px] flex-1 flex-wrap gap-1' htmlFor="astra__checkbox">
                     <span>
                         <Image width='0' height='0' sizes='100vw' className= "h-[10px] w-auto" src={astraIcon} alt="" />
                     </span>

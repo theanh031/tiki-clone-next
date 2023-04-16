@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image';
 import nowIcon from '@/public/img/now_product.png'
+import {formatCash} from "@/src/components/helpler";
 
 interface ProductItemType {
     product: any;
@@ -51,10 +52,10 @@ const ProductItem = ({product}: ProductItemType) => {
                                             ) ? (
                                                 <Image
                                                     alt=""
-                                                    width="0"
-                                                    height="0"
+                                                    width={53}
+                                                    height={20}
                                                     sizes="100vw"
-                                                    className="w-auto min-h-[24px]"
+                                                    className=""
                                                     src={product.badges_new.find((e: any) => e.code === "asa_reward_badge").icon}
                                                 />
                                             ) : ("")
@@ -104,7 +105,7 @@ const ProductItem = ({product}: ProductItemType) => {
                                     <div
                                         className="text-[#ff424e] text-left text-[16px] leading-6 font-medium m-0 flex items-center">
                                         <div>
-                                            {product.price}{" "}
+                                            {formatCash(product.price)}{" "}
                                             <sup
                                                 className="-top-[0.5em] relative text-[75%] leading-[0] align-baseline">₫</sup>
                                         </div>

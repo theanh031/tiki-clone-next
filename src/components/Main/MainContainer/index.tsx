@@ -5,7 +5,7 @@ import Product__list from './Product__list'
 import Pagination from "@/src/components/Main/MainContainer/Pagination";
 const Index = () => {
     return (
-        <div className='flex justify-between w-[1270px] px-[15px] mx-auto'>
+        <div className='flex justify-between w-[1270px] px-[15px] mx-auto items-start'>
             <Dashboard />
             <div className='w-categoryWidth'>
                 <Summary/>

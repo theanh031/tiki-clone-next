@@ -9,6 +9,10 @@ const nextConfig = {
                 protocol: "https",
                 hostname: "salt.tikicdn.com",
             },
+            {
+                protocol: "http",
+                hostname: "frontend.tikicdn.com",
+            }
         ],
         minimumCacheTTL: 15000000,
     },

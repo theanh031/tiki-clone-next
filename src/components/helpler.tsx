@@ -15,5 +15,12 @@ export const HandleRate = (num : any) => {
 )
 }
 
+export const formatCash = (str: string) =>{
+    str = str.toString()
+    return str.split('').reverse().reduce((prev, next, index) => {
+        return ((index % 3) ? next : (next + '.')) + prev
+    })
+}
+
 
 
